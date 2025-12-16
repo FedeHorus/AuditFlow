@@ -1,4 +1,4 @@
-# AuditFlow: Automated Quality Assurance Pipeline
+# AuditFlow: Automated Quality Assurance
 
 AuditFlow is a high-performance, **single-tenant** automated Quality Assurance (QA) pipeline designed for the call industries. It automates the ingestion, transcription, and analysis of 100% of phone calls from several platforms.
 
