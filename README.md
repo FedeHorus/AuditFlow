@@ -14,8 +14,8 @@ Traditional QA relies on human auditors who can only monitor 2-5% of total call 
 ## 🛠️ System Architecture
 
 1.  **Ingestion (AWS Lambda):** Triggered by **Amazon EventBridge**. It fetches call logs and recording URLs from your platform, storing them in **DynamoDB** with a `PENDING` status.
-2.  **Transcription (AWS Fargate + GPU):** A containerized worker using **Faster-Whisper**. It downloads the audio, transcribes it locally using GPU acceleration for maximum speed, and updates the record to `TRANSCRIBED`.
-3.  **AI Analysis (AWS Lambda + Gemini API):** A specialized worker that sends transcripts to a LLM. It applies a custom business rubric to categorize the call (e.g., *Appointment Set*, *Not Interested*, *Wrong Number*) and generates a detailed summary.
+2.  **Transcription (AWS Fargate + GPU):** A containerized worker. It downloads the audio, transcribes it locally using GPU acceleration for maximum speed, and updates the record to `TRANSCRIBED`.
+3.  **AI Analysis (AWS Lambda + AI API):** A specialized worker that sends transcripts to a LLM. It applies a custom business rubric to categorize the call (e.g., *Appointment Set*, *Not Interested*, *Wrong Number*) and generates a detailed summary.
 4.  **Reporting (AWS Lambda):** Finalized data is exported to a **Google Sheets** dashboard for real-time stakeholder review.
 
 ---
@@ -33,8 +33,8 @@ The following table compares the cost of auditing **1,000 calls** (average 5 min
 | **Cost per 1,000 Calls**| $2,000.00 | **$18.10** | **$1,981.90** |
 
 ### Detailed AI Cost Breakdown (per 5-min call)
-* **AWS Fargate (GPU Compute):** ~$0.017 (Based on `g4ad.xlarge` spot pricing)[cite: 1, 2].
-* **Gemini 1.5 Flash API:** ~$0.0001 (Processing ~1,500 tokens).
+* **AWS Fargate (GPU Compute):** ~$0.017 (Based on `g4ad.xlarge` spot pricing).
+* **Outcome notator API:** ~$0.0001 (Processing ~1,500 tokens).
 * **AWS Lambda & DynamoDB:** ~$0.001 (Orchestration and storage).
 
 ---
@@ -49,7 +49,7 @@ The following table compares the cost of auditing **1,000 calls** (average 5 min
 
 ### Requirements
 * **AWS Account:** With permissions for Lambda, Fargate (ECS), and DynamoDB.
-* **Faster-Whisper:** Requires a `requirements.txt` including `faster-whisper`, `torch`, and `boto3`.
+* **Text-to-speech** 
 * **Access to API Keys:** For your platforms of choice. 
 
 
