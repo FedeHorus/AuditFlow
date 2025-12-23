@@ -1,6 +1,6 @@
 # AuditFlow: Automated Quality Assurance
 
-AuditFlow is a high-performance, **single-tenant** automated Quality Assurance (QA) pipeline designed for the call industries. It automates the ingestion, transcription, and analysis of 100% of phone calls from several platforms.
+AuditFlow is a high-performance, **single-tenant** automated Quality Assurance (QA) pipeline designed for the call industries. It automates the ingestion, and analysis of 100% of phone calls from several platforms.
 
 ---
 
@@ -13,9 +13,9 @@ Traditional QA relies on human auditors who can only monitor 2-5% of total call 
 
 ## 🛠️ System Architecture
 
-1.  **Ingestion (AWS Lambda):** Triggered by **Amazon EventBridge**. It fetches call logs and recording URLs from your platform, storing them in **DynamoDB** with a `PENDING` status.
-2.  **Transcription (AWS Fargate + GPU):** A containerized worker. It downloads the audio, transcribes it locally using GPU acceleration for maximum speed, and updates the record to `TRANSCRIBED`.
-3.  **AI Analysis (AWS Lambda + AI API):** A specialized worker that sends transcripts to a LLM. It applies a custom business rubric to categorize the call (e.g., *Appointment Set*, *Not Interested*, *Wrong Number*) and generates a detailed summary.
+1.  **Ingestion (AWS Lambda):** Triggered by **Amazon EventBridge**. It fetches call logs and recording from your platform of choice(single or multiple platforms), storing them in **DynamoDB** with a `PENDING` status.
+2.  **Intepreting (AWS Fargate + GPU):** A containerized worker. It downloads the audio, analyzes it locally, and updates the record ready to get the outcome of the call.
+3.  **AI Analysis (AWS Lambda + AI API):** A specialized worker with integrated LLM. It applies a custom business rubric to categorize the call (e.g., *Appointment Set*, *Not Interested*, *Wrong Number*) and generates a detailed summary.
 4.  **Reporting (AWS Lambda):** Finalized data is exported to a **Google Sheets** dashboard for real-time stakeholder review.
 
 ---
